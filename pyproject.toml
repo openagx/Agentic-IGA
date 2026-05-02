@@ -1,0 +1,30 @@
+[project]
+name = "midpoint-mcp"
+version = "0.1.0"
+description = "MCP Server for midPoint REST API"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "mcp>=1.0.0",
+    "httpx>=0.26.0",
+    "pydantic>=2.5.0",
+    "python-dotenv>=1.0.0",
+    "loguru>=0.7.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["midpoint_mcp*"]
+
+[tool.mcp.server]
+package = "midpoint_mcp"
