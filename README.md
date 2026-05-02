@@ -1,6 +1,6 @@
 # midPoint LangGraph Agent Framework
 
-This project provides an MCP (Model Context Protocol) server and a LangGraph-based AI agent to interact with the midPoint identity management system via its REST API.
+This project provides an MCP (Model Context Protocol) server and an AI agent to interact with the midPoint identity management system via its REST API.
 
 ## Architecture
 
@@ -28,15 +28,23 @@ This project provides an MCP (Model Context Protocol) server and a LangGraph-bas
 
 ## Components
 
-### 1. MCP Server (`midpoint_mcp/`)
+### 1. MCP Server ([midpoint_mcp/](midpoint_mcp/))
+
 - Provides tools to interact with midPoint REST API
 - Supports user, role, org, and resource management
 - Handles search and RPC operations
 
-### 2. Agent (`midpoint_agent/`)
+### 2. Agent ([midpoint_agent/](midpoint_agent/))
+
 - Built with OpenHands SDK (LangGraph)
 - File-based sub-agent definition
 - midPoint domain skill for context
+
+### 3. Next.js UI ([midpoint_agent/ui/](midpoint_agent/ui/))
+
+- Modern React chat interface
+- Real-time messaging
+- API route for LLM integration
 
 ## Quick Start
 
@@ -54,6 +62,7 @@ cp .env.example .env
 ```
 
 Required environment variables:
+
 - `MIDPOINT_URL` - Your midPoint instance URL
 - `MIDPOINT_USERNAME` - Username
 - `MIDPOINT_PASSWORD` - Password
@@ -71,6 +80,16 @@ python -m midpoint_mcp.server
 cd midpoint_agent
 python example_run.py
 ```
+
+### 5. Run the Next.js UI (Optional)
+
+```bash
+cd midpoint_agent/ui
+npm install
+npm run dev
+```
+
+Then open http://localhost:3000
 
 ## Available MCP Tools
 
@@ -138,24 +157,31 @@ instructions: |
 
 ## Project Structure
 
-```
+```text
 midpoint-framework/
 ├── .env.example           # Environment template
 ├── requirements.txt      # Python dependencies
 ├── pyproject.toml       # MCP server config
 │
 ├── midpoint_mcp/
-│   └── server.py      # MCP server implementation
+│   ├── __init__.py
+│   ├── server.py        # MCP server implementation
 │   └── pyproject.toml
 │
 └── midpoint_agent/
-    ├── agent.py         # Agent runtime
-    ├── example_run.py   # Example usage
+    ├── __init__.py
+    ├── agent.py        # Agent runtime
+    ├── example_run.py  # Example usage
+    ├── chat_ui.py      # FastAPI chat UI
     ├── pyproject.toml
     ├── skills/
     │   └── midpoint.md    # Domain skill
-    └── subagents/
-        └── midpoint-admin.agent  # File-based agent
+    ├── subagents/
+    │   └── midpoint-admin.agent  # File-based agent
+    └── ui/               # Next.js chat UI
+        ├── app/
+        ├── package.json
+        └── tsconfig.json
 ```
 
 ## Configuration Options
